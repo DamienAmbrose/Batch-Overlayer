@@ -7,30 +7,32 @@ export interface GridSelectorOptionData {
 	text: string;
 	description?: string;
 	checked?: boolean;
+	value?: string | number;
 }
 
-export function GridSelectorOption({ id, text, description, checked }: GridSelectorOptionData) {
-	const { multiple, name, selected, setSelected } = useContext(GridSelectorContext);
+function toggleSelection(
+	previous: string | string[],
+	value: string,
+	multiple?: boolean
+): string | string[] 
+{
+	if (multiple) {
+		const list = Array.isArray(previous) ? previous : [];
 
-	function toggleSelection(
-		previous: string | string[],
-		id: string,
-		multiple?: boolean
-	): string | string[] 
-	{
-		if (multiple) {
-			const list = Array.isArray(previous) ? previous : [];
-
-			return list.includes(id)
-				? list.filter(v => v !== id)
-				: [...list, id];
-		}
-		return id;
+		return list.includes(value)
+			? list.filter(v => v !== value)
+			: [...list, value];
 	}
+	return value;
+}
+
+export function GridSelectorOption({ id, text, description, checked, value }: GridSelectorOptionData) {
+	const { multiple, name, selected, setSelected } = useContext(GridSelectorContext);
+	const trueValue = value ? value.toString() : id;
 
 	useEffect(() => {
 		checked && 
-			setSelected(previous => toggleSelection(previous, id, multiple))
+			setSelected(previous => toggleSelection(previous, trueValue, multiple))
 	}, []);
 
 	return (
@@ -38,9 +40,12 @@ export function GridSelectorOption({ id, text, description, checked }: GridSelec
 			<input
 				type={multiple ? 'checkbox' : 'radio'}
 				className='hidden'
-				id={id} name={name} value={id}
-				onChange={() => setSelected(previous => toggleSelection(previous, id, multiple))}
-				checked={(multiple && selected?.includes(id)) || (!multiple && selected === id)} />
+				id={id} name={name}
+				onChange={() => { 
+					setSelected(previous => toggleSelection(previous, trueValue, multiple))
+				}}
+				checked={(multiple && selected?.includes(trueValue)) || (!multiple && selected === trueValue)}
+				value={trueValue} />
 			<label htmlFor={id} className='clickable'>
 				<div className="option_title">{text}</div>
 				<div className='option_content'>{description}</div>

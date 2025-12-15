@@ -5,7 +5,6 @@ import { faCloud as rCloud } from '@fortawesome/free-regular-svg-icons';
 
 interface FilePickerProps {
     id: string;
-    name?: string;
     accept: string;
     text: string;
     note?: string;
@@ -13,7 +12,7 @@ interface FilePickerProps {
     disabled?: boolean;
 }
 
-function FilePicker({id, name, accept, note, multiple, disabled, text}: FilePickerProps) {
+function FilePicker({id, accept, note, multiple, disabled, text}: FilePickerProps) {
     const [
         fileCount,
         setFileCount
@@ -25,7 +24,7 @@ function FilePicker({id, name, accept, note, multiple, disabled, text}: FilePick
 
     return (
     <fieldset className='file_picker_field' disabled={disabled}>
-        <input type="file" className="hidden" id={id} name={name ? name : undefined} accept={accept} multiple={multiple} onChange={handleFileInput}/>
+        <input type="file" className="hidden" id={id} accept={accept} multiple={multiple} onChange={handleFileInput}/>
         <label htmlFor={id}>
             {text} {multiple && <>({fileCount})</>}
             {note && <small>{note}</small>}
