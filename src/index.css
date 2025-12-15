@@ -1,14 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Elms+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
-    --outer-padding: 12px;
+    --nominal-padding: 12px;
     --border-radius: 15px;
+    --pill-border-radius: 75px;
     --white-1: rgb(226, 228, 231);
     --white-2: rgb(200, 205, 213);
-    --white-3: rgb(180, 186, 195);
+    --white-3: rgb(158, 166, 177);
     --black-1: rgb(35, 43, 55);
+    --black-2: rgb(57, 65, 78);
+    --black-3: rgb(71, 78, 90);
     --transition: all 150ms cubic-bezier(0.25, 0.82, 0.32, 1); 
-    --shadow: 0px 1px 18px 0px rgba(0,0,0,0.2);
+    --shadow: 0px 1px 18px 0px rgba(84, 95, 111, 0.3);
 }
 
 * {
@@ -32,7 +35,42 @@ html, body {
     display: flex;
     justify-content: stretch;
     align-items: stretch;
-    gap: var(--outer-padding);
+    gap: var(--nominal-padding);
 
-    padding: var(--outer-padding);
+    padding: var(--nominal-padding);
+}
+
+.clickable {
+    cursor: pointer; 
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: var(--pill-border-radius); 
+
+    transition: var(--transition);
+}
+
+
+.clickable:hover, .clickable:focus-visible {
+    transform: scale(1.075);
+    filter: brightness(1.05);
+    box-shadow: var(--shadow);
+}
+
+.clickable:active {
+    transform: scale(0.95);
+    filter: brightness(0.95);
+}
+
+.hidden {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    height: 0;
+    width: 0;
+
+    opacity: 0;
 }

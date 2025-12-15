@@ -1,35 +1,17 @@
-section {
-    background: var(--white-2);
-
+aside, main {
     width: 100%;
-    padding: var(--outer-padding);
-
-    border-radius: var(--border-radius);
 }
 
-section.workspace {
-    display: flex;
-    flex-direction: column;
-    justify-content: stretch;
-    align-items: stretch;
-    gap: var(--outer-padding);
-} 
-
-section.workspace header.actions {
-    background-color: var(--white-3);
-
-    padding: var(--outer-padding);
-    border-radius: calc(var(--border-radius) - (var(--outer-padding) / 2));
-}
-
-section.workspace main.preview {
+main {
     display: flex;
     justify-content: center;
     align-items: center;
-
-    height: 100%;
 }
 
-section.workspace main.preview canvas {
+main canvas {
     background: white;
+}
+
+fieldset {
+    border: none;
 }

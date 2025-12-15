@@ -1,0 +1,47 @@
+fieldset.file_picker_field {
+	width: 100%;
+
+	padding: var(--nominal-padding);
+
+	text-align: center;
+
+	display: flex;
+	justify-content: space-between;
+	align-items: start;
+
+	label {
+		display: flex;
+		flex-direction: column;
+		justify-content: start;
+		align-items: start;
+
+		small {
+			font-style: italic;
+			color: var(--black-3);
+			text-align: left;
+		}
+	}
+
+	button {
+		padding: var(--nominal-padding) calc(var(--nominal-padding) * 2);
+
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: calc(var(--nominal-padding) / 2);
+
+		flex-shrink: 0;
+
+		border: none;
+		border-radius: calc(var(--pill-border-radius));
+
+		background: var(--black-1);
+		color: var(--white-1);
+	}
+
+	input:focus-visible ~ button {
+		transform: scale(1.075);
+		filter: brightness(1.05);
+		box-shadow: var(--shadow);
+	}
+}
