@@ -1,0 +1,37 @@
+fieldset.input_field {
+	width: 100%;
+
+	padding: var(--nominal-padding);
+
+	text-align: center;
+
+	display: flex;
+	justify-content: space-between;
+	align-items: start;
+
+	label {
+		display: flex;
+		flex-direction: column;
+		justify-content: start;
+		align-items: start;
+
+		small {
+			font-style: italic;
+			color: var(--black-3);
+			text-align: left;
+		}
+	}
+
+    input {
+        padding: calc(var(--nominal-padding) / 2) calc(var(--nominal-padding) * 2);
+
+        border: none;
+        border-radius: var(--border-radius);
+
+        text-align: center;
+
+        cursor: text;
+
+        outline: none;
+    }
+}

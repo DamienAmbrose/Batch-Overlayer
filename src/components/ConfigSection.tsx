@@ -6,8 +6,9 @@ import { faImage as rImage, faEye as rEye, faPaperPlane as rPaperPlane} from '@f
 import { faImage as sImage, faEye as sEye, faPaperPlane as sPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
 import FilePicker from './FilePicker.tsx';
+import FieldSelector from './FieldSelector.tsx';
 import GridSelector from './GridSelector.tsx';
-import { GridSelectorOption } from './GridSelectorOption.tsx';
+import GridSelectorOption from './GridSelectorOption.tsx';
 import { CanvasContext } from '../App.tsx';
 
 function ConfigSection() {
@@ -16,7 +17,7 @@ function ConfigSection() {
         setOpenPanel,
     ] = useState("import");
 
-    const { setCanvasAspectRatio } = useContext(CanvasContext);
+    const { setCanvasAspectRatio, setColumns } = useContext(CanvasContext);
 
     return (
     <aside className="config">
@@ -66,6 +67,11 @@ function ConfigSection() {
                         description='8.5in x 11in'
                         value={1.294}/>
                 </GridSelector>
+
+                <FieldSelector type='number' subtype='number' id='columns_field' onChange={(columns) => setColumns(columns)}
+                    min={1} max={20} value={1} 
+                    text='Columns' 
+                    note='Range: 0-20'/>
             </section>
 
             <section className="config_pane" id="adjust_pane" inert={openPanel !== 'adjust'}>

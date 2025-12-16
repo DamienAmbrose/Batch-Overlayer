@@ -2,7 +2,7 @@ import { useEffect, useContext } from 'react';
 import { GridSelectorContext } from './GridSelector'
 import './GridSelector.css'
 
-export interface GridSelectorOptionData {
+interface GridSelectorOptionData {
 	id: string
 	text: string;
 	description?: string;
@@ -26,7 +26,7 @@ function toggleSelection(
 	return value;
 }
 
-export function GridSelectorOption({ id, text, description, checked, value }: GridSelectorOptionData) {
+function GridSelectorOption({ id, text, description, checked, value }: GridSelectorOptionData) {
 	const { multiple, name, selected, setSelected } = useContext(GridSelectorContext);
 	const trueValue = value ? value.toString() : id;
 
@@ -53,3 +53,5 @@ export function GridSelectorOption({ id, text, description, checked, value }: Gr
 		</>
 	)
 }
+
+export default GridSelectorOption

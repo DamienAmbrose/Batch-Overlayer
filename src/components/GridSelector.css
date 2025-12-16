@@ -3,22 +3,19 @@ fieldset.grid_selector {
     display: flex;
     flex-direction: column;
 
-    padding: 0;
+    padding: var(--nominal-padding) 0;
     margin: 0;
-    margin-top: var(--nominal-padding);
 
     legend {
         width: 100%;
 
         font-weight: bold;
         text-align: center;
-
-        padding: var(--nominal-padding);
     }
     .options_container {
         display: grid;
         gap: var(--nominal-padding);
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr;
 
         label {
             padding: var(--nominal-padding);

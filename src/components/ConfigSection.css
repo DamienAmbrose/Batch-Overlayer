@@ -69,6 +69,10 @@ aside.config {
 			flex-direction: column;
 			justify-content: start;
 			align-items: center;
+
+			fieldset.grid_selector .options_container {
+				grid-template-columns: 1fr 1fr 1fr;
+			}
 		}
 
 		.config_pane:not([inert]) {
