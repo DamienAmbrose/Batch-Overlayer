@@ -21,12 +21,15 @@ function Canvas({ id }: CanvasProps) {
         if (!context) return;
 
         context.clearRect(0, 0, width, height);
+        context.fillStyle = 'white';
+        context.fillRect(0, 0, width, height);
         for (var i = 0; i < images.length; i++) {
             const image = images[i];
             const imageWidth = width / columns;
             const xPos = (i % columns);
             const yPos = (Math.trunc(i / columns) > 0) ? getYPos(images, i, columns) : 0;
             context.drawImage(image, xPos * imageWidth, yPos, imageWidth, image.height * (imageWidth / image.width))
+            overlay && context.drawImage(overlay, xPos * imageWidth, yPos, imageWidth, overlay.height * (imageWidth / overlay.width))
         }
     }, [canvasArea, canvasAspectRatio, columns, images, overlay]);
 
