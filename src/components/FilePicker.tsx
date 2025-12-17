@@ -10,9 +10,10 @@ interface FilePickerProps {
     note?: string;
     multiple?: boolean;
     disabled?: boolean;
+	onUpload?: (v: FileList | undefined) => void;
 }
 
-function FilePicker({id, accept, note, multiple, disabled, text}: FilePickerProps) {
+function FilePicker({id, accept, note, multiple, disabled, text, onUpload}: FilePickerProps) {
     const [
         fileCount,
         setFileCount
@@ -20,6 +21,7 @@ function FilePicker({id, accept, note, multiple, disabled, text}: FilePickerProp
 
     function handleFileInput(event:React.ChangeEvent<HTMLInputElement>) {
         event.target.files && setFileCount(event.target.files?.length);
+        onUpload?.(event.target.files?? undefined);
     }
 
     return (
