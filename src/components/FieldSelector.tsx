@@ -42,26 +42,45 @@ function FieldSelector(props: FieldSelectorProps) {
 	const {id, type, subtype, text, note} = props; 
 
 	if (type === 'number')
-	return (
+		return (
+			<fieldset className='input_field'>
+				<label htmlFor="id">
+					{text}
+					{note && <small>{note}</small>}
+				</label>
+
+				{props.type === 'number' &&
+					<input className='clickable' type={subtype} id={id}
+						min={props.min} 
+						max={props.max}
+						value={fieldValue as number}
+						onChange={(v) => { 
+							const inValue = Number(v.target.value);
+							const trueValue = 
+								(props.max && inValue > props.max ? props.max : inValue) || 
+								(props.min && inValue < props.min ? props.min : inValue);
+
+							setFieldValue(trueValue);
+							props.onChange?.(trueValue);
+						}}/>
+				}
+			</fieldset>
+		)
+	else if (type === 'string') 
+		return (
 		<fieldset className='input_field'>
 			<label htmlFor="id">
 				{text}
 				{note && <small>{note}</small>}
 			</label>
 
-			{props.type === 'number' &&
+			{props.type === 'string' &&
 				<input className='clickable' type={subtype} id={id}
-					min={props.min} 
-					max={props.max}
 					value={fieldValue as number}
+					placeholder={props.placeholder}
 					onChange={(v) => { 
-						const inValue = Number(v.target.value);
-						const trueValue = 
-							(props.max && inValue > props.max ? props.max : inValue) || 
-							(props.min && inValue < props.min ? props.min : inValue);
-
-						setFieldValue(trueValue);
-						props.onChange?.(trueValue);
+						setFieldValue(v.target.value);
+						props.onChange?.(v.target.value);
 					}}/>
 			}
 		</fieldset>

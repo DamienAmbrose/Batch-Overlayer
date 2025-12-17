@@ -1,5 +1,5 @@
 aside.config {
-    width: 40%;
+    width: 30%;
 
     display: flex;
     flex-direction: column;
@@ -84,5 +84,23 @@ aside.config {
 
 			transform: scale(1);
 		}
+	}
+
+	button#export_result {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: var(--nominal-padding);
+
+		padding: var(--nominal-padding) calc(var(--nominal-padding) * 2);
+
+		font-size: unset;
+
+		border: none;
+
+		background: var(--black-1);
+		color: var(--white-1);
+
+		margin: var(--nominal-padding);
 	}
 }

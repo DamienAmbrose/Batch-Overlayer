@@ -16,8 +16,14 @@ function ConfigSection() {
         openPanel,
         setOpenPanel,
     ] = useState("import");
+    const [
+        fileFormat,
+        setFileFormat,
+    ] = useState("");
+    const [filename, setFilename] = useState('');
 
-    const { setCanvasAspectRatio, setColumns, setImages, setOverlay} = useContext(CanvasContext);
+
+    const { setCanvasAspectRatio, setColumns, setImages, setOverlay, canvas } = useContext(CanvasContext);
 
     return (
         <aside className="config">
@@ -92,7 +98,47 @@ function ConfigSection() {
                 </section>
 
                 <section className="config_pane" id="export_pane" inert={openPanel !== 'export'}>
+                    <GridSelector title='File Type' name='export_type_selector' 
+                        onOptionChange={(option) => setFileFormat(option as string)}>
+                        <GridSelectorOption id='png'
+                            text='PNG'
+                            description='Lossless'/>
 
+                        <GridSelectorOption id='jpeg'
+                            text='JPEG'
+                            description='Wide support'/>
+
+                        <GridSelectorOption id='webp'
+                            text='WebP'
+                            description='Smaller file'/>
+                    </GridSelector>
+
+                    <FieldSelector id='filename_selector' type='string' subtype='text' onChange={(value) => setFilename(value)}
+                        text='Filename'
+                        note='Name your output file'
+                        placeholder='Type here...'/>
+
+                    <button className='clickable' id='export_result' onClick={() => {
+                        if (!fileFormat) { alert('No file format selected.'); return; }
+                        try {
+                            const imageData = canvas?.toDataURL('image/' + fileFormat) as string;
+                            const link = document.createElement('a');
+                            link.href = imageData;
+                            link.download = filename?? 'download'; 
+                            link.className = 'hidden';
+
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                        }
+                        catch (error) {
+                            console.error('Error generating download (' + {error} + ')');
+                            alert('Error generating download (' + {error} + ')');
+                        }
+                    }}>
+                        <FontAwesomeIcon icon={sPaperPlane}/>
+                        Export now
+                    </button>
                 </section>
             </main>
         </aside>

@@ -9,11 +9,13 @@ export const CanvasContext = createContext<{
 	columns: number;
 	images: ImageBitmap[];
 	overlay: ImageBitmap | undefined;
+	canvas: HTMLCanvasElement | null;
     setCanvasArea: React.Dispatch<React.SetStateAction<number>>;
     setCanvasAspectRatio: React.Dispatch<React.SetStateAction<number>>;
     setColumns: React.Dispatch<React.SetStateAction<number>>;
     setImages: React.Dispatch<React.SetStateAction<ImageBitmap[]>>;
     setOverlay: React.Dispatch<React.SetStateAction<ImageBitmap | undefined>>;
+    setCanvas: React.Dispatch<React.SetStateAction<HTMLCanvasElement | null>>;
 }>
 ({
 	canvasArea: 0,
@@ -21,11 +23,13 @@ export const CanvasContext = createContext<{
 	columns: 1,
 	images: [],
 	overlay: undefined,
+	canvas: null,
     setCanvasArea: () => {},
     setCanvasAspectRatio: () => {},
     setColumns: () => {},
     setImages: () => {},
-    setOverlay: () => {}
+    setOverlay: () => {},
+	setCanvas: () => {}
 });
 
 function App() {
@@ -34,9 +38,10 @@ function App() {
 	const [columns, setColumns] = useState(1);
 	const [images, setImages] = useState([] as ImageBitmap[]);
 	const [overlay, setOverlay] = useState(undefined as ImageBitmap | undefined);
+	const [canvas, setCanvas] = useState(null as HTMLCanvasElement | null);
 
 	return (
-		<CanvasContext.Provider value={{ canvasArea: canvasArea, canvasAspectRatio: canvasAspectRatio, columns: columns, images: images, overlay: overlay, setCanvasArea, setCanvasAspectRatio, setColumns, setImages, setOverlay }}>
+		<CanvasContext.Provider value={{ canvasArea: canvasArea, canvasAspectRatio: canvasAspectRatio, columns: columns, images: images, overlay: overlay, canvas: canvas, setCanvasArea, setCanvasAspectRatio, setColumns, setImages, setOverlay, setCanvas }}>
 			<ConfigSection/>
 			<main>
 				<Canvas id='main_canvas'/>

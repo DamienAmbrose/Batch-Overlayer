@@ -6,7 +6,7 @@ interface CanvasProps {
 }
 
 function Canvas({ id }: CanvasProps) {
-    const { canvasArea, canvasAspectRatio, columns, images, overlay } = useContext(CanvasContext);
+    const { setCanvas, canvasArea, canvasAspectRatio, columns, images, overlay } = useContext(CanvasContext);
 
     function getYPos(images: ImageBitmap[], i: number, cols: number): number {
         if (i < cols) return 0; // top row: y = 0
@@ -39,6 +39,8 @@ function Canvas({ id }: CanvasProps) {
         const canvas = canvasRef.current;
         if (!canvas) return;
         contextRef.current = canvas.getContext('2d');
+
+        setCanvas(canvas);
     }, []);
 
     return (

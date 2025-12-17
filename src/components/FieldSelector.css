@@ -33,5 +33,7 @@ fieldset.input_field {
         cursor: text;
 
         outline: none;
+
+        background: var(--white-1);
     }
 }
