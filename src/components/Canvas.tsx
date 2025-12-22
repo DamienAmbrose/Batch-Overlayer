@@ -6,10 +6,10 @@ interface CanvasProps {
 }
 
 function Canvas({ id }: CanvasProps) {
-    const { setCanvas, canvasArea, canvasAspectRatio, columns, images, overlay } = useContext(CanvasContext);
+    const { setCanvas, portraitMode, canvasArea, canvasAspectRatio, columns, images, overlay } = useContext(CanvasContext);
 
     function getYPos(images: ImageBitmap[], i: number, cols: number): number {
-        if (i < cols) return 0; // top row: y = 0
+        if (i < cols) return 0; 
         const aboveIndex = i - cols;
         const aboveImage = images[aboveIndex];
         const scaledHeight = aboveImage.height * ((width / columns) / aboveImage.width);
@@ -33,8 +33,11 @@ function Canvas({ id }: CanvasProps) {
         }
     }, [canvasArea, canvasAspectRatio, columns, images, overlay]);
 
-    let width = Math.sqrt(canvasArea * canvasAspectRatio);
-    let height = canvasArea / width;
+    let width_tmp = Math.sqrt(canvasArea * canvasAspectRatio);
+    let height_tmp = canvasArea / width_tmp;
+
+    let width = portraitMode ? height_tmp : width_tmp;
+    let height = portraitMode ? width_tmp : height_tmp;
 
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const contextRef = useRef<CanvasRenderingContext2D | null>(null);

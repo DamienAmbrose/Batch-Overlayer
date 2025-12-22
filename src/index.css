@@ -11,7 +11,7 @@
     --black-2: rgb(57, 65, 78);
     --black-3: rgb(71, 78, 90);
     --transition: all 150ms cubic-bezier(0.25, 0.82, 0.32, 1); 
-    --shadow: 0px 1px 18px 0px rgba(84, 95, 111, 0.3);
+    --shadow: 0px 1px 10px 0px rgba(56, 65, 79, 0.2);
 }
 
 * {

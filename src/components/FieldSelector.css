@@ -15,6 +15,8 @@ fieldset.input_field {
 		justify-content: start;
 		align-items: start;
 
+		user-select: none;
+
 		small {
 			font-style: italic;
 			color: var(--black-3);
@@ -30,10 +32,61 @@ fieldset.input_field {
 
         text-align: center;
 
-        cursor: text;
-
         outline: none;
 
         background: var(--white-1);
     }
+
+    input[type='text'], input[type='number'] {
+		cursor: text;
+	}
+
+	input[type='checkbox'] ~ .checkbox_visual {
+		width: calc(var(--nominal-padding) * 5);
+		padding: calc(var(--nominal-padding) / 3);
+
+		background-color: var(--white-1);
+
+		border-radius: var(--pill-border-radius);
+
+		display: block;
+
+		transition: var(--transition);
+
+		cursor: pointer;
+
+		.checkbox_inner {
+			width: calc(var(--nominal-padding) * 1.75);
+			aspect-ratio: 1;
+
+			border-radius: var(--pill-border-radius);
+
+			background: var(--white-2);
+
+			margin-left: 0;
+
+			transition: var(--transition);
+		}
+	}
+
+	input[type='checkbox']:focus-visible ~ .checkbox_visual, input[type='checkbox'] ~ .checkbox_visual:hover {
+		filter: brightness(1.05);
+		.checkbox_inner {
+			transform: scale(1.5);
+			box-shadow: var(--shadow);
+		}
+	}
+
+	input[type='checkbox'] ~ .checkbox_visual .checkbox_inner:active {
+		transform: scale(1.15);
+	}
+
+	input[type='checkbox']:checked ~ .checkbox_visual {
+		background: var(--black-2);
+
+		.checkbox_inner {
+			margin-left: calc(100% - var(--nominal-padding) * 1.75);
+			background: var(--white-1);
+		}
+	}
 }

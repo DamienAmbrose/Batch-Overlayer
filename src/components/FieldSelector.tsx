@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {  useRef, useState } from 'react';
 import './FieldSelector.css'
 
 type FieldSelectorTypes = 'number' | 'string' | 'boolean'
@@ -44,7 +44,7 @@ function FieldSelector(props: FieldSelectorProps) {
 	if (type === 'number')
 		return (
 			<fieldset className='input_field'>
-				<label htmlFor="id">
+				<label htmlFor={id}>
 					{text}
 					{note && <small>{note}</small>}
 				</label>
@@ -69,7 +69,7 @@ function FieldSelector(props: FieldSelectorProps) {
 	else if (type === 'string') 
 		return (
 		<fieldset className='input_field'>
-			<label htmlFor="id">
+			<label htmlFor={id}>
 				{text}
 				{note && <small>{note}</small>}
 			</label>
@@ -85,6 +85,56 @@ function FieldSelector(props: FieldSelectorProps) {
 			}
 		</fieldset>
 	)
+	else if (type === 'boolean') {
+		let checkbox = useRef<HTMLDivElement | null>(null);
+		let checkboxInner = useRef<HTMLDivElement | null>(null);
+
+		const handleMouseMove = (event: MouseEvent) => {
+			if (!checkbox.current || !checkboxInner.current) return;
+			const checkboxRect = checkbox.current.getBoundingClientRect();
+			const checkboxInnerRect = checkboxInner.current.getBoundingClientRect();
+
+			const offsetX = event.clientX - checkboxRect.x;
+			const paddingRight = parseFloat(getComputedStyle(checkbox.current).paddingRight || '0');
+
+			const maxX = checkboxRect.width - checkboxInnerRect.width - paddingRight;
+			const clampedX = Math.min(Math.max(0, offsetX), maxX);
+
+			checkboxInner.current.style.setProperty('margin-left', `${clampedX}px`);
+			setFieldValue(clampedX > maxX / 2);
+			props.onChange?.(clampedX > maxX / 2);
+		}
+
+		return (
+		<fieldset className='input_field'>
+			{props.type === 'boolean' &&
+				<input className='hidden' type={subtype} id={id}
+					checked={fieldValue as boolean}
+					onChange={(v) => { 
+						setFieldValue(v.target.checked);
+						props.onChange?.(v.target.checked);
+					}}/>
+			}
+
+			<label htmlFor={id}>
+				{text}
+				{note && <small>{note}</small>}
+			</label>
+
+			<div className='checkbox_visual' ref={checkbox} 
+				onMouseDown={() => { 
+					document.body.addEventListener('mousemove', handleMouseMove);
+					document.body.addEventListener('mouseup', () => {
+						document.body.removeEventListener('mousemove', handleMouseMove);
+						checkboxInner.current!.style.removeProperty('margin-left');
+					}, { once: true });
+				}} 
+				onClick={() => { setFieldValue(!(fieldValue as boolean)); props.onChange?.(!(fieldValue as boolean)) }}>
+				<div className='checkbox_inner' ref={checkboxInner} />
+			</div>
+		</fieldset>
+		)
+	}
 }
 
 export default FieldSelector

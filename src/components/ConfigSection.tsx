@@ -23,7 +23,7 @@ function ConfigSection() {
     const [filename, setFilename] = useState('');
 
 
-    const { setCanvasAspectRatio, setColumns, setImages, setOverlay, canvas } = useContext(CanvasContext);
+    const { setPortraitMode, setCanvasAspectRatio, setColumns, setImages, setOverlay, canvas } = useContext(CanvasContext);
 
     return (
         <aside className="config">
@@ -86,6 +86,10 @@ function ConfigSection() {
                             description='8.5in x 11in'
                             value={1.294} />
                     </GridSelector>
+
+                    <FieldSelector type='boolean' subtype='checkbox' id='portrait_field' onChange={(portrait) => setPortraitMode(portrait)} 
+                        text='Portrait'
+                        note='Enable portrait mode' />
 
                     <FieldSelector type='number' subtype='number' id='columns_field' onChange={(columns) => setColumns(columns)}
                         min={1} max={20} value={1}
